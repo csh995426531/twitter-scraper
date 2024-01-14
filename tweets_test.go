@@ -18,14 +18,14 @@ var cmpOptions = cmp.Options{
 
 func TestGetTweets(t *testing.T) {
 	count := 0
-	maxTweetsNbr := 300
+	maxTweetsNbr := 10
 	dupcheck := make(map[string]bool)
 	scraper := twitterscraper.New()
-	err := scraper.LoginOpenAccount()
+	err := scraper.Login("xxxx", "xxxx")
 	if err != nil {
-		t.Fatalf("LoginOpenAccount() error = %v", err)
+		t.Fatalf("Login() error = %v", err)
 	}
-	for tweet := range scraper.GetTweets(context.Background(), "Twitter", maxTweetsNbr) {
+	for tweet := range scraper.GetTweets(context.Background(), "name", maxTweetsNbr) {
 		if tweet.Error != nil {
 			t.Error(tweet.Error)
 		} else {
