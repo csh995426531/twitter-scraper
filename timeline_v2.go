@@ -109,6 +109,14 @@ func (timeline *timelineV2) parseTweets() ([]*Tweet, string) {
 				if tweet := entry.Content.ItemContent.TweetResults.Result.parse(); tweet != nil {
 					tweets = append(tweets, tweet)
 				}
+			} else if len(entry.Content.Items) > 0 {
+				for _, item := range entry.Content.Items {
+					if item.Item.ItemContent.TweetResults.Result.Typename == "Tweet" {
+						if tweet := item.Item.ItemContent.TweetResults.Result.parse(); tweet != nil {
+							tweets = append(tweets, tweet)
+						}
+					}
+				}
 			}
 		}
 	}
